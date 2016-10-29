@@ -15,6 +15,6 @@ void pr_exit(int status) {
 }
 
 void err_sys(const char *buf) {
-    printf(buf);
+    printf("%s", buf);
     exit(1);
 }
