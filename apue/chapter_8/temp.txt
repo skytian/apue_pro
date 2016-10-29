@@ -1,0 +1,8 @@
+a write stdout
+before fork!
+this is child process!
+var:6  global_var:7
+pid:2833 ppid:2832  uid:0  var:7  global_var:8
+before fork!
+this is main process!
+pid:2832 ppid:2437  uid:0  var:6  global_var:7
