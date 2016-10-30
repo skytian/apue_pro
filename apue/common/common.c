@@ -18,3 +18,13 @@ void err_sys(const char *buf) {
     printf("%s", buf);
     exit(1);
 }
+
+void pr_mask(const char *str){
+    sigset_t sigset;
+    int errno_save;
+
+    errno_save = errno;
+    if(sigprocmask(0, NULL, &sigset) < 0) {
+        err_ret("sigprocmask error!");
+    }
+}
