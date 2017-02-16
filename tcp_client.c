@@ -12,7 +12,7 @@ int main(int argc,char **argv)
 	int sockfd;
 	int err,n;
 	struct sockaddr_in addr_ser;
-	char sendline[20],recvline[20];
+	char sendline[1024],recvline[1024];
 	
 	sockfd=socket(AF_INET,SOCK_STREAM,0);
 	if(sockfd==-1)
@@ -43,7 +43,7 @@ int main(int argc,char **argv)
 	
 		printf("waiting for server...\n");
 	
-		n=recv(sockfd,recvline,100,0);
+		n=recv(sockfd,recvline,1024,0);
 		recvline[n]='\0';
 		
 		printf("recv data is:%s\n",recvline);
