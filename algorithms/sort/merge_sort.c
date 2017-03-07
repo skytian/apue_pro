@@ -23,11 +23,11 @@ int main(){
 
 int merge_sort(int array[], int start, int end){
     if(start < end){
-        printf("start:%d end:%d\n", start, end);
+        //printf("start:%d end:%d\n", start, end);
         int mid = (end + start)/2;
         merge_sort(array, start, mid);
         merge_sort(array, mid+1, end);
-        printf("start:%d mid:%d end:%d\n", start, mid, end);
+        //printf("start:%d mid:%d end:%d\n", start, mid, end);
         merge(array, start, mid, end);
     }
 }
