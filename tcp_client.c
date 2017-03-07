@@ -6,7 +6,7 @@
 #include<unistd.h>
 #include<netinet/in.h>
 #define IPADDR "localhost"
-#define PORT 8000
+#define PORT 8765
 int main(int argc,char **argv)
 {
 	int sockfd;
@@ -23,7 +23,7 @@ int main(int argc,char **argv)
 	
 	bzero(&addr_ser,sizeof(addr_ser));
 	addr_ser.sin_family=AF_INET;
-	inet_pton(AF_INET, IPADDR, &addr_ser.sin_addr);
+	inet_pton(AF_INET, argv[1], &addr_ser.sin_addr);
 	addr_ser.sin_port=htons(PORT);
 	err=connect(sockfd,(struct sockaddr *)&addr_ser,sizeof(addr_ser));
 	if(err==-1)
