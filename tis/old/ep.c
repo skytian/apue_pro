@@ -21,7 +21,6 @@
 #define PORT    8909
 
 
-
 int main(){
     int ev_fd, ser_fd, con_fd, nfds;
     int rev_size = 0;
