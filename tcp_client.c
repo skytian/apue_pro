@@ -6,7 +6,7 @@
 #include<unistd.h>
 #include<netinet/in.h>
 #define IPADDR "localhost"
-#define PORT 8080
+#define PORT 80
 int main(int argc,char **argv)
 {
 	int sockfd;
@@ -43,7 +43,7 @@ int main(int argc,char **argv)
 	
 		printf("waiting for server...\n");
 	
-		n=recv(sockfd,recvline,1024,0);
+		n=recv(sockfd,recvline,4096,0);
 		recvline[n]='\0';
 		
 		printf("recv data is:%s\n",recvline);
