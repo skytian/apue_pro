@@ -8,6 +8,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include<string.h>
 #include"tis_http.h"
 
 void tcpReply(char *data, char *request){
@@ -17,7 +18,9 @@ void tcpReply(char *data, char *request){
 void httpReply(char *data, char *request){
     //int ret;
     //ret = judgeHttpHeader(data, request);
-    sprintf(request, "HTTP/1.1 200 OK\r\nDate:Sat, 11 Mar 2017 09:37:45 GMT\r\n Server:test tis\r\nContent-length:0\r\nContent-Type: text/javascript;charset=gbk\r\nCache-Control: private\r\nConnection: Keep-Alive\r\n\r\n");
+    char content[1024] = "\r\n<head><title>tis server</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>start tis server</h1></center>\r\n<hr><center>tis/0.0.1</center>\r\n</body>\r\n</html>\r\n";
+    printf("length:%lu", strlen(content)+1);
+    sprintf(request, "HTTP/1.1 200 OK\r\nDate:Sun,12 Mar 2017 09:37:45 GMT\r\nServer:test tis\r\nContent-length:%lu\r\nContent-Type: text/html;charset=gbk\r\nCache-Control: private\r\nConnection: Keep-Alive\r\n\r\n<html>\r\n<head><title>tis server</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>start tis server</h1></center>\r\n<hr><center>tis/0.0.1</center>\r\n</body>\r\n</html>\r\n", strlen(content)+1);
 }
 
 void soapReply(char *data, char *request){

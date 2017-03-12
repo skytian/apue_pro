@@ -22,7 +22,7 @@
 
 #define MAXEV   1024
 #define MAXLINE 4096
-#define PORT    80
+#define PORT    8080
 
 
 
@@ -175,7 +175,8 @@ int main(int argc, char **argv){
                 if(rev_size > 0){
                     buf[rev_size] = '\0';
                     processRecv(buf, req, pfunc);
-                    printf("receive buf:%s rev_size:%d from client!\n", buf, rev_size);
+                    getsockname(events[i].data.fd, (struct sockaddr *)&cli_addr, &slen);
+                    printf("receive buf:%s rev_size:%d from client:%s!\n", buf, rev_size, inet_ntoa(cli_addr.sin_addr));
                     printf("send request:%s size:%d to client!\n", req, (int)strlen(req));
                     write(events[i].data.fd, req, strlen(req)+1);
                 }
