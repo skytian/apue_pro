@@ -3,6 +3,7 @@
 
 from socket import *
 from time import ctime
+import json
 
 host = ''
 port = 12345
@@ -19,9 +20,18 @@ while True:
     print("Connection from :",addr)
 
     while True:
-        data = tctimeClient.recv(buffsize).decode()
-        if not data:
+        rcv = tctimeClient.recv(buffsize).decode()
+        print("#########recv:",rcv)
+        data=json.loads(rcv)
+        print("type:",data['type']) 
+        if data['type'] == 5:
+            rtdata='{"dest":2786751926,"from":2786614220,"type":6,"subs":[]}'
+        elif data['type'] == 4:
+            sycntype = data['msg']['type']
+            print("sycntype:",sycntype)
+            rtdata='{"dest":2786751926,"from":2786614220,"type":4,"msg":{"type":2,"t0":2474476,"t1":4790955,"t2":4805971}}'
+        if not rtdata:
             break
-        tctimeClient.send(('[%s] %s' % (ctime(),data)).encode())
+        tctimeClient.send(rtdata.encode())
     tctimeClient.close()
 tctimeClient.close()
