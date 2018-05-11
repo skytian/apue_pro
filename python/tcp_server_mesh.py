@@ -31,7 +31,7 @@ while True:
                 #tctimeClient.send(rtdata.encode())
                 tctimeClient.send(rtdata)
                 print("#########send:",rtdata.encode())
-        tctimeClient.close()
+                tctimeClient.close()
     except:
         print "error connect"
 tctimeClient.close()
