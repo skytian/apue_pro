@@ -2,25 +2,29 @@ import os
 import sys
 import time
 import getopt
-import requests
 import asyncio
+import urllib.request as request
+import aiohttp
 
 
 
-
-def checkUrl(url):
-    try:
-        r=requests.get(url,timeout=10)
-        if r.status_code == 200:
-            print("connect ",url," ok")
-        else:
-            print("fail code:",r.status_code)
-    except Exception as error:
-        print("fail connect:%s"%url)
-        print(error)
-
+@asyncio.coroutine
 async def async_checkUrl(url):
-    checkUrl(url)
+    for i in range(0,5):
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status==200:
+                        print("connect ",url," ok")
+                        return
+                    else:
+                        print("connect url:",url," fail")
+                        await asyncio.sleep(5)
+        except Exception as error:
+            print(error)
+    msg = "connect url:%s failed 5 times"%url
+    alarm(msg)
+
 
 def readtxt(path):
     try:
@@ -33,6 +37,9 @@ def readtxt(path):
     except Exception as error:
         print("read url failed")
         print(error)
+
+def alarm(msg):
+    print("ALARM:",msg)
 
 def daemonize (stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
     try: 
@@ -85,11 +92,11 @@ def main(argv):
                     loop.run_until_complete(asyncio.wait(tasks))
                     loop.close
                     print("\n")
-                    time.sleep(5)
+                    time.sleep(60)
             except Exception as e:
                 print("connect fail")
                 print(e)
 
 if __name__ == "__main__":
-    daemonize('/dev/null','/tmp/daemon_stdout.log','/tmp/daemon_error.log')
+    #daemonize('/dev/null','/tmp/daemon_stdout.log','/tmp/daemon_error.log')
     main(sys.argv[1:])
